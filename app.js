@@ -11,7 +11,8 @@ app.use(bodyParser.json())
 const port =  process.env.PORT || 3000
 
 //rutas
-require('./src/routes/endpoints')(app)
+require('./src/routes/cajachica')(app)
+// require('./src/routes/odecma')(app)
 
 app.listen(port,()=>{
     console.log(`corriendo en el puerto ${port}`)

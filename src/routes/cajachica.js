@@ -1,12 +1,11 @@
-const User =  require('../models/queries')
+const Query =  require('../models/Qcajachica')
 
 module.exports = function(app){
-
 
 //Mostrar todos combobox
 //---------------------------------------------
     app.get('/dropdowns',(req,res)=>{
-        User.getData((err,data)=>{
+        Query.getData((err,data)=>{
             res.status(200).json(data)
         })
   
@@ -14,7 +13,7 @@ module.exports = function(app){
 //Mostrar todos los reportes
 //---------------------------------------------
     app.get('/reporte',(req,res)=>{
-        User.getReporte((err,data)=>{
+        Query.getReporte((err,data)=>{
             res.status(200).json(data)
         })
     })
@@ -22,12 +21,12 @@ module.exports = function(app){
     //Guardar solo proveedores
     //---------------------------------------------
     app.post('/addpro',(req,res)=>{
-        const userData = {
+        const proveData = {
             id_prove_trab:null,
             nombre:req.body.nombre,
         }
 
-         User.insertProveedor(userData,(err,data)=>{
+        Query.insertProveedor(proveData,(err,data)=>{
             if(data && data.insertId){
                 console.log(data)
                 res.status(200).json({
@@ -60,10 +59,9 @@ module.exports = function(app){
             programa:req.body.programa,
             area_laboral_id:req.body.area,
             meta_id:req.body.meta
-
         }
 
-        User.insertReporte(reportData,(err,data)=>{
+        Query.insertReporte(reportData,(err,data)=>{
             if(data && data.insertId){
                 res.status(200).json({
                     success:true,
