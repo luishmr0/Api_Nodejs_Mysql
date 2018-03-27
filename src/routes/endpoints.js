@@ -1,4 +1,4 @@
-const User =  require('../models/queries')
+const Use =  require('../models/queries')
 
 module.exports = function(app){
 
@@ -6,7 +6,7 @@ module.exports = function(app){
 //Mostrar todos combobox
 //---------------------------------------------
     app.get('/dropdowns',(req,res)=>{
-        User.getData((err,data)=>{
+        Use.getData((err,data)=>{
             res.status(200).json(data)
         })
   
@@ -14,7 +14,7 @@ module.exports = function(app){
 //Mostrar todos los reportes
 //---------------------------------------------
     app.get('/reporte',(req,res)=>{
-        User.getReporte((err,data)=>{
+        Use.getReporte((err,data)=>{
             res.status(200).json(data)
         })
     })
@@ -27,7 +27,7 @@ module.exports = function(app){
             nombre:req.body.nombre,
         }
 
-         User.insertProveedor(userData,(err,data)=>{
+         Use.insertProveedor(userData,(err,data)=>{
             if(data && data.insertId){
                 console.log(data)
                 res.status(200).json({
@@ -63,7 +63,7 @@ module.exports = function(app){
 
         }
 
-        User.insertReporte(reportData,(err,data)=>{
+        Use.insertReporte(reportData,(err,data)=>{
             if(data && data.insertId){
                 res.status(200).json({
                     success:true,
