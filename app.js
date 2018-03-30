@@ -3,9 +3,11 @@ const app = express();
 
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
+const cors  =require('cors')
 
 app.use(morgan('dev'))
 app.use(bodyParser.json())
+app.use(cors())
 
 //personalizar puerto
 const port = process.env.PORT || 3000
