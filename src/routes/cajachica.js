@@ -2,6 +2,11 @@ const Query = require('../models/Qcajachica')
 
 module.exports = function (app) {
 
+    app.get('/',(req,res)=>{
+        res.send("Api Run")
+    })
+
+
     //Mostrar todos combobox
     //---------------------------------------------
     app.get('/api/dropdowns', (req, res) => {
@@ -22,7 +27,7 @@ module.exports = function (app) {
     app.post('/api/addproveedor', (req, res) => {
         const proveData = {
             id_prove_trab: null,
-            nombre: req.body.nombre,
+            desc_proveedor: req.body.proveedor,
         }
 
         Query.insertProveedor(proveData, (err, data) => {
@@ -49,14 +54,14 @@ module.exports = function (app) {
         const reportData = {
             id_reporte: null,
             fecha: req.body.fecha,
-            clase: req.body.clase,
+            clase_id: req.body.clase,
             dni_ruc: req.body.dni,
-            proveedor_trabajador_id: req.body.proveedor,
+            proveedor_id: req.body.proveedor,
             detalle_gasto: req.body.detalle,
             importe: req.body.importe,
-            partidas: req.body.partidas,
-            programa: req.body.programa,
-            area_laboral_id: req.body.area,
+            partida_id: req.body.partida,
+            programa_id: req.body.programa,
+            area_id: req.body.area,
             meta_id: req.body.meta
         }
 
