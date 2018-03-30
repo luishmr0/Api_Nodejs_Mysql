@@ -84,6 +84,7 @@ dataModel.getReporte = (cb) => {
     connection.query(
         `SELECT  
             r.id_reporte,
+            r.presupuesto,
             r.fecha,
             cl.concepto_gasto clase,
             r.dni_ruc,
