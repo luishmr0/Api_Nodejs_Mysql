@@ -53,11 +53,11 @@ module.exports = function (app) {
     app.post('/api/reporte', (req, res) => {
         const reportData = {
             id_reporte: null,
-            presupuesto:req.body.presupuesto,
             fecha: req.body.fecha,
             clase_id: req.body.clase,
             dni_ruc: req.body.dni,
             proveedor_id: req.body.proveedor,
+            concepto_id:req.body.concepto,
             detalle_gasto: req.body.detalle,
             importe: req.body.importe,
             partida_id: req.body.partida,

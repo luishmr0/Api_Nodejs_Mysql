@@ -84,13 +84,13 @@ dataModel.getReporte = (cb) => {
     connection.query(
         `SELECT  
             r.id_reporte,
-            r.presupuesto,
             r.fecha,
-            cl.concepto_gasto clase,
+            cl.desc_clase clase,
             r.dni_ruc,
             pt.desc_proveedor proveedor,
             r.detalle_gasto,
             r.importe,
+            cc.concepto_gasto concepto,
             par.desc_partida partida,
             pro.desc_programa programa,
             a.desc_area area,
@@ -102,6 +102,7 @@ dataModel.getReporte = (cb) => {
              INNER JOIN partida par ON par.id_partida = r.partida_id
              INNER JOIN programa pro ON pro.id_programa = r.programa_id
              INNER JOIN clase cl ON cl.id_clase  = r.clase_id
+             INNER JOIN concepto cc ON cc.id_concepto = r.concepto_id
              ORDER BY r.id_reporte
              `)
         .then(r1 => {
