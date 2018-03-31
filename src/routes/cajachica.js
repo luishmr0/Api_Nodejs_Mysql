@@ -55,6 +55,7 @@ module.exports = function (app) {
             id_reporte: null,
             fecha: req.body.fecha,
             clase_id: req.body.clase,
+            numero:req.body.numero,
             dni_ruc: req.body.dni,
             proveedor_id: req.body.proveedor,
             concepto_id:req.body.concepto,
@@ -84,5 +85,16 @@ module.exports = function (app) {
 
     //---------------------------------------------
 
+    //SELECT  X FECHAS
+    app.get('/api/fecha/:d1/:d2',(req,res)=>{
+
+        const date ={
+            d1:req.params.d1,
+            d2:req.params.d2
+        }
+        Query.reportesFecha(date,(err,data)=>{
+            res.status(200).json(data)
+        })
+    })
 }
 

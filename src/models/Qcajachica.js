@@ -43,7 +43,11 @@ dataModel.getData = (cb) => {
             return query6
         }).then(r6=>{
             allData.push(r6)
-            cb(null,allData)
+            let query7  = connection.query('SELECT * FROM concepto ORDER BY id_concepto')
+            return query7
+        }).then(r7=>{
+            allData.push(r7)
+            cb(null,allData)  
         }).catch(err => {
             console.log(`Error generado: ${err}`)
         })
@@ -86,6 +90,7 @@ dataModel.getReporte = (cb) => {
             r.id_reporte,
             r.fecha,
             cl.desc_clase clase,
+            r.numero,
             r.dni_ruc,
             pt.desc_proveedor proveedor,
             r.detalle_gasto,
@@ -113,5 +118,16 @@ dataModel.getReporte = (cb) => {
 }
 
 //---------------------------------------------
+dataModel.reportesFecha=(date,cb)=>{
+    connection.query(`SELECT * FROM reporte WHERE fecha BETWEEN  ? AND ?`,[date.d1,date.d2])
+    .then(result=>{
+        // console.log(date.d1,date.d2)
+        cb(null,result)
+    }).catch(err=>{
+        console.log(`Error generado: ${err}`)
+    })
+}
+
+
 
 module.exports = dataModel
