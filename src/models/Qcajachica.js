@@ -15,8 +15,8 @@ var connection = mysql.createPool({
 
 var queryReporte = `
 SELECT  
-    r.fecha,
     r.id_reporte,
+    r.fecha,
     cl.desc_clase clase,
     r.numero,
     r.dni_ruc,
@@ -27,7 +27,7 @@ SELECT
     par.desc_partida partida,
     pro.desc_programa programa,
     a.desc_area area,
-    m.desc_meta area
+    m.desc_meta meta
 FROM reporte r 
     INNER JOIN meta m ON m.id_meta = r.meta_id
     INNER JOIN area a ON a.id_area = r.area_id
