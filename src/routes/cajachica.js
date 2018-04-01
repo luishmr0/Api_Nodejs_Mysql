@@ -26,7 +26,7 @@ module.exports = function (app) {
     //---------------------------------------------
     app.post('/api/addproveedor', (req, res) => {
         const proveData = {
-            id_prove_trab: null,
+            id_proveedor: null,
             desc_proveedor: req.body.proveedor,
         }
 

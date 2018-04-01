@@ -13,7 +13,30 @@ var connection = mysql.createPool({
     connectionLimit: 10
 })
 
-
+var queryReporte = `
+SELECT  
+    r.fecha,
+    r.id_reporte,
+    cl.desc_clase clase,
+    r.numero,
+    r.dni_ruc,
+    pt.desc_proveedor proveedor,
+    r.detalle_gasto,
+    r.importe,
+    cc.concepto_gasto concepto,
+    par.desc_partida partida,
+    pro.desc_programa programa,
+    a.desc_area area,
+    m.desc_meta area
+FROM reporte r 
+    INNER JOIN meta m ON m.id_meta = r.meta_id
+    INNER JOIN area a ON a.id_area = r.area_id
+    INNER JOIN proveedor pt ON pt.id_proveedor = r.proveedor_id
+    INNER JOIN partida par ON par.id_partida = r.partida_id
+    INNER JOIN programa pro ON pro.id_programa = r.programa_id
+    INNER JOIN clase cl ON cl.id_clase  = r.clase_id
+    INNER JOIN concepto cc ON cc.id_concepto = r.concepto_id
+ `
 
 let dataModel = {}
 ///proveedores/areas/metas
@@ -31,23 +54,23 @@ dataModel.getData = (cb) => {
             return query3
         }).then(r3 => {
             allData.push(r3)
-           let query4  = connection.query('SELECT * FROM clase ORDER BY id_clase')
-           return query4
-        }).then(r4=>{
+            let query4 = connection.query('SELECT * FROM clase ORDER BY id_clase')
+            return query4
+        }).then(r4 => {
             allData.push(r4)
             let query5 = connection.query('SELECT * FROM partida ORDER BY id_partida')
             return query5
-        }).then(r5=>{
+        }).then(r5 => {
             allData.push(r5)
-            let query6  = connection.query('SELECT * FROM programa ORDER BY id_programa')
+            let query6 = connection.query('SELECT * FROM programa ORDER BY id_programa')
             return query6
-        }).then(r6=>{
+        }).then(r6 => {
             allData.push(r6)
-            let query7  = connection.query('SELECT * FROM concepto ORDER BY id_concepto')
+            let query7 = connection.query('SELECT * FROM concepto ORDER BY id_concepto')
             return query7
-        }).then(r7=>{
+        }).then(r7 => {
             allData.push(r7)
-            cb(null,allData)  
+            cb(null, allData)
         }).catch(err => {
             console.log(`Error generado: ${err}`)
         })
@@ -86,28 +109,7 @@ dataModel.insertReporte = (data, cb) => {
 
 dataModel.getReporte = (cb) => {
     connection.query(
-        `SELECT  
-            r.id_reporte,
-            r.fecha,
-            cl.desc_clase clase,
-            r.numero,
-            r.dni_ruc,
-            pt.desc_proveedor proveedor,
-            r.detalle_gasto,
-            r.importe,
-            cc.concepto_gasto concepto,
-            par.desc_partida partida,
-            pro.desc_programa programa,
-            a.desc_area area,
-            m.desc_meta area
-            FROM reporte r 
-             INNER JOIN meta m ON m.id_meta = r.meta_id
-             INNER JOIN area a ON a.id_area = r.area_id
-             INNER JOIN proveedor pt ON pt.id_proveedor = r.proveedor_id
-             INNER JOIN partida par ON par.id_partida = r.partida_id
-             INNER JOIN programa pro ON pro.id_programa = r.programa_id
-             INNER JOIN clase cl ON cl.id_clase  = r.clase_id
-             INNER JOIN concepto cc ON cc.id_concepto = r.concepto_id
+        `   ${queryReporte}
              ORDER BY r.id_reporte
              `)
         .then(r1 => {
@@ -118,14 +120,18 @@ dataModel.getReporte = (cb) => {
 }
 
 //---------------------------------------------
-dataModel.reportesFecha=(date,cb)=>{
-    connection.query(`SELECT * FROM reporte WHERE fecha BETWEEN  ? AND ?`,[date.d1,date.d2])
-    .then(result=>{
-        // console.log(date.d1,date.d2)
-        cb(null,result)
-    }).catch(err=>{
-        console.log(`Error generado: ${err}`)
-    })
+dataModel.reportesFecha = (date, cb) => {
+    connection.query(`
+    ${queryReporte}
+    WHERE fecha BETWEEN  ? AND ?
+    ORDER BY r.id_reporte
+    `, [date.d1, date.d2])
+        .then(result => {
+            // console.log(date.d1,date.d2)
+            cb(null, result)
+        }).catch(err => {
+            console.log(`Error generado: ${err}`)
+        })
 }
 
 
