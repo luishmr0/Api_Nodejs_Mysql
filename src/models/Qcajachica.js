@@ -16,6 +16,8 @@ var connection = mysql.createPool({
 var queryReporte = `
 SELECT  
     r.id_reporte,
+    r.presupuesto,
+    r.fecha_doc,
     r.fecha,
     cl.desc_clase clase,
     r.numero,
