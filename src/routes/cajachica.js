@@ -98,5 +98,45 @@ module.exports = function (app) {
             res.status(200).json(data)
         })
     })
+
+//REGISTRAR USUARIOS
+app.post('/api/user',(req,res)=>{
+    const usuario = {
+        nombre:req.body.nombre,
+        apellido:req.body.apellido,
+        usuario:req.body.usuario,
+        password:req.body.password,
+        privilegio:req.body.privilegio,
+        estado:req.body.estado
+    }
+
+    Query.insertUser(usuario,(err,data)=>{
+        if (data && data.insertId) {
+            console.log(data)
+            res.status(200).json({
+                success: true,
+                msg: 'Usuario Registrado',
+                data: data
+            })
+        } else {
+            res.status(500).json({
+                success: false,
+                msg: "ERROR no se pudo registrar Usuario"
+            })
+        }
+    })
+
+})
+
+//MOSTRAR USUARIOS
+
+app.get('/api/users',(req,res)=>{
+
+    Query.getUsers((err,data)=>{
+        res.status(200).json(data)
+    })
+})
+
+
 }
 

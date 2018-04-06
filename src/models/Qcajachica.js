@@ -16,8 +16,6 @@ var connection = mysql.createPool({
 var queryReporte = `
 SELECT  
     r.id_reporte,
-    r.presupuesto,
-    r.fecha_doc,
     r.fecha,
     cl.desc_clase clase,
     r.numero,
@@ -130,6 +128,26 @@ dataModel.reportesFecha = (date, cb) => {
     `, [date.d1, date.d2])
         .then(result => {
             // console.log(date.d1,date.d2)
+            cb(null, result)
+        }).catch(err => {
+            console.log(`Error generado: ${err}`)
+        })
+}
+//------------------------------
+//registrar usuario
+dataModel.insertUser = (dataUser, cb) => {
+    connection.query("INSERT INTO usuario SET ?", [dataUser])
+        .then(result => {
+            cb(null, { insertId: result.insertId })
+        }).catch(err => {
+            console.log(`Error generado: ${err}`)
+        })
+}
+
+//mostrar usuarios
+dataModel.getUsers = (cb) => {
+    connection.query('SELECT * FROM usuario ')
+        .then(result => {
             cb(null, result)
         }).catch(err => {
             console.log(`Error generado: ${err}`)
