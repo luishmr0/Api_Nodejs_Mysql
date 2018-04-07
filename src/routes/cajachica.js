@@ -151,6 +151,30 @@ app.post('/api/login',(req,res)=>{
     })
 })
 
+// actualizar usuarios
+app.put('/api/userupdate/:id',(req,res)=>{
+    const user = {
+        id:req.params.id,
+        usuario:req.body.usuario,
+        password:req.body.password,
+        nombre:req.body.nombre,
+        apellido:req.body.apellido,
+        privilegio:req.body.privilegio,
+        estado:req.body.estado
+    }
+
+    Query.userupdate(user,(err,data)=>{
+        if(data && data.msg){
+            res.status(200).json({data})
+        }else{
+            res.status(500).json({
+                success:false,
+                msg:"Error"
+            })
+        }
+    })
+})
+
 
 }
 

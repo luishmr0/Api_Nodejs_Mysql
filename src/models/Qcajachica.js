@@ -154,17 +154,46 @@ dataModel.getUsers = (cb) => {
         })
 }
 
-dataModel.verifica = (user,cb)=>{
+dataModel.verifica = (user, cb) => {
     connection.query(
-        `SELECT nombre FROM usuario 
+        `SELECT nombre,estado, privilegio FROM usuario 
         WHERE usuario=? AND password=?`
-        ,[user.usuario,user.password])
-        .then(result=>{
-            cb(null,result)
-        }).catch(err=>{
+        , [user.usuario, user.password])
+        .then(result => {
+            cb(null, result)
+        }).catch(err => {
             console.log(`Error generado: ${err}`)
         })
-    
+
 }
+
+
+//---------------
+//Update Usuarios
+dataModel.userupdate = (user, cb) => {
+    connection.query(`
+    UPDATE usuario SET
+    usuario = ?,
+    password = ?,
+    nombre = ?,
+    apellido = ?,
+    privilegio = ?,
+    estado = ?
+    WHERE id_usuario = ?
+    `, [user.usuario,
+        user.password,
+        user.nombre,
+        user.apellido,
+        user.privilegio,
+        user.estado,
+        user.id]).then(result => {
+            cb(null, {
+                "msg": "success"
+            })
+        }).catch(err => {
+            console.log(`Error generado: ${err}`)
+        })
+}
+
 
 module.exports = dataModel
