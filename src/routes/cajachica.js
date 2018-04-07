@@ -137,6 +137,20 @@ app.get('/api/users',(req,res)=>{
     })
 })
 
+//validar users
+app.post('/api/login',(req,res)=>{
+
+    user ={
+        usuario:req.body.usuario,
+        password:req.body.password       
+    }
+    Query.verifica(user,(err,data)=>{
+     
+           res.status(200).json(data)
+       
+    })
+})
+
 
 }
 

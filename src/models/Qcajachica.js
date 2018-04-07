@@ -154,6 +154,17 @@ dataModel.getUsers = (cb) => {
         })
 }
 
-
+dataModel.verifica = (user,cb)=>{
+    connection.query(
+        `SELECT nombre FROM usuario 
+        WHERE usuario=? AND password=?`
+        ,[user.usuario,user.password])
+        .then(result=>{
+            cb(null,result)
+        }).catch(err=>{
+            console.log(`Error generado: ${err}`)
+        })
+    
+}
 
 module.exports = dataModel
