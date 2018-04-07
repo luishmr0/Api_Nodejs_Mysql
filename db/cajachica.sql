@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-04-2018 a las 23:00:45
+-- Tiempo de generación: 07-04-2018 a las 19:27:01
 -- Versión del servidor: 5.6.21
 -- Versión de PHP: 5.5.19
 
@@ -37,8 +37,8 @@ CREATE TABLE IF NOT EXISTS `area` (
 --
 
 INSERT INTO `area` (`id_area`, `desc_area`, `l_activo`) VALUES
-(1, 'area1', 'A'),
-(2, 'area2', 'D');
+(1, 'area1', '0'),
+(2, 'area2', '0');
 
 -- --------------------------------------------------------
 
@@ -148,30 +148,41 @@ INSERT INTO `programa` (`id_programa`, `desc_programa`, `estado_programa`) VALUE
 
 CREATE TABLE IF NOT EXISTS `proveedor` (
 `id_proveedor` int(11) NOT NULL,
-  `desc_proveedor` varchar(50) COLLATE utf8_spanish2_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+  `desc_proveedor` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
+  `ruc` varchar(11) COLLATE utf8_spanish2_ci NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `proveedor`
 --
 
-INSERT INTO `proveedor` (`id_proveedor`, `desc_proveedor`) VALUES
-(6, 'Proveedor 1'),
-(7, 'Proveedor 2'),
-(8, 'Proveedor 3'),
-(9, 'Proveedor 4'),
-(10, 'Proveedor 6'),
-(11, 'proveedor 007'),
-(12, 'proveedor 007'),
-(13, 'proveedor 007'),
-(14, 'proveedor 001'),
-(15, 'proveedor 006'),
-(16, 'proveedor 00256'),
-(17, 'proveedor 00256'),
-(18, 'prove 99'),
-(19, 'proveedor 44'),
-(20, 'proveedor 45'),
-(21, 'proveedor fail new');
+INSERT INTO `proveedor` (`id_proveedor`, `desc_proveedor`, `ruc`) VALUES
+(1, 'proveedor 1', '32105469852'),
+(2, 'proveedor 2', '40005469853'),
+(3, 'proveedor 3', '98756452136');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `rendicion`
+--
+
+CREATE TABLE IF NOT EXISTS `rendicion` (
+`id_rendicion` int(11) NOT NULL,
+  `presupuesto` varchar(20) COLLATE utf8_spanish2_ci NOT NULL,
+  `fecha` date NOT NULL,
+  `total` decimal(10,2) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `rendicion`
+--
+
+INSERT INTO `rendicion` (`id_rendicion`, `presupuesto`, `fecha`, `total`) VALUES
+(1, 'OPERACION', '2018-04-12', '0.00'),
+(2, 'INVERSION', '2018-04-13', '0.00'),
+(3, 'INVERSION', '2018-04-13', '0.00'),
+(4, 'INVERSION', '2018-04-13', '0.00');
 
 -- --------------------------------------------------------
 
@@ -181,8 +192,7 @@ INSERT INTO `proveedor` (`id_proveedor`, `desc_proveedor`) VALUES
 
 CREATE TABLE IF NOT EXISTS `reporte` (
 `id_reporte` int(11) NOT NULL,
-  `presupuesto` varchar(20) COLLATE utf8_spanish2_ci NOT NULL,
-  `fecha_doc` date NOT NULL,
+  `rendicion_id` int(11) NOT NULL,
   `fecha` date NOT NULL,
   `clase_id` int(11) NOT NULL,
   `numero` varchar(11) COLLATE utf8_spanish2_ci NOT NULL,
@@ -195,19 +205,39 @@ CREATE TABLE IF NOT EXISTS `reporte` (
   `programa_id` int(11) NOT NULL,
   `area_id` int(11) NOT NULL,
   `meta_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `reporte`
 --
 
-INSERT INTO `reporte` (`id_reporte`, `presupuesto`, `fecha_doc`, `fecha`, `clase_id`, `numero`, `dni_ruc`, `proveedor_id`, `detalle_gasto`, `concepto_id`, `importe`, `partida_id`, `programa_id`, `area_id`, `meta_id`) VALUES
-(7, '', '0000-00-00', '2019-03-31', 1, '1', '46712206', 18, 'detalle007', 1, '46.63', 1, 1, 2, 5),
-(8, '', '0000-00-00', '2019-03-01', 1, '22', '46712206', 18, 'detalle007', 1, '46.63', 1, 1, 2, 5),
-(9, '', '0000-00-00', '2016-06-15', 1, '1', '5454545454', 8, '232323', 1, '232.66', 2, 2, 2, 5),
-(10, '', '0000-00-00', '2020-03-06', 1, '12', '46712206', 18, 'detalle0078', 1, '146.63', 1, 1, 2, 5),
-(13, '', '0000-00-00', '2020-05-05', 1, '20', '5454545', 13, 'detallesada', 1, '101.99', 1, 1, 2, 5),
-(14, 'operacion', '2019-02-02', '2020-05-05', 1, '20', '5454545', 13, 'detallesada', 1, '101.99', 1, 1, 2, 5);
+INSERT INTO `reporte` (`id_reporte`, `rendicion_id`, `fecha`, `clase_id`, `numero`, `dni_ruc`, `proveedor_id`, `detalle_gasto`, `concepto_id`, `importe`, `partida_id`, `programa_id`, `area_id`, `meta_id`) VALUES
+(1, 2, '2018-04-11', 2, '1', '65656554', 2, 'proabndo', 2, '400.66', 2, 2, 2, 5);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuario`
+--
+
+CREATE TABLE IF NOT EXISTS `usuario` (
+`id_usuario` int(11) NOT NULL,
+  `usuario` varchar(20) COLLATE utf8_spanish2_ci NOT NULL,
+  `password` varchar(20) COLLATE utf8_spanish2_ci NOT NULL,
+  `nombre` varchar(20) COLLATE utf8_spanish2_ci NOT NULL,
+  `apellido` varchar(20) COLLATE utf8_spanish2_ci NOT NULL,
+  `privilegio` varchar(20) COLLATE utf8_spanish2_ci NOT NULL,
+  `estado` char(1) COLLATE utf8_spanish2_ci NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`id_usuario`, `usuario`, `password`, `nombre`, `apellido`, `privilegio`, `estado`) VALUES
+(1, 'usap01', '698422', 'user01', 'apelli1', 'caja1', 'A'),
+(2, 'user02', '213123213', 'namex2', 'aplex6', 'admin', 'D'),
+(4, 'user3', '6666', 'name1', 'apel', 'admin', 'A');
 
 --
 -- Índices para tablas volcadas
@@ -256,10 +286,22 @@ ALTER TABLE `proveedor`
  ADD PRIMARY KEY (`id_proveedor`);
 
 --
+-- Indices de la tabla `rendicion`
+--
+ALTER TABLE `rendicion`
+ ADD PRIMARY KEY (`id_rendicion`);
+
+--
 -- Indices de la tabla `reporte`
 --
 ALTER TABLE `reporte`
- ADD PRIMARY KEY (`id_reporte`), ADD KEY `meta_id` (`meta_id`), ADD KEY `programa_id` (`programa_id`), ADD KEY `partidas_id` (`partida_id`), ADD KEY `prove_id` (`proveedor_id`), ADD KEY `clase_id` (`clase_id`), ADD KEY `arealaboral_id` (`area_id`), ADD KEY `clase_id_2` (`clase_id`), ADD KEY `clase_id_3` (`clase_id`), ADD KEY `programa_id_2` (`programa_id`), ADD KEY `partida_id` (`partida_id`), ADD KEY `clase_id_4` (`clase_id`), ADD KEY `concepto_id` (`concepto_id`);
+ ADD PRIMARY KEY (`id_reporte`), ADD KEY `meta_id` (`meta_id`), ADD KEY `programa_id` (`programa_id`), ADD KEY `partidas_id` (`partida_id`), ADD KEY `prove_id` (`proveedor_id`), ADD KEY `clase_id` (`clase_id`), ADD KEY `arealaboral_id` (`area_id`), ADD KEY `clase_id_2` (`clase_id`), ADD KEY `clase_id_3` (`clase_id`), ADD KEY `programa_id_2` (`programa_id`), ADD KEY `partida_id` (`partida_id`), ADD KEY `clase_id_4` (`clase_id`), ADD KEY `concepto_id` (`concepto_id`), ADD KEY `rendicion_id` (`rendicion_id`);
+
+--
+-- Indices de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+ ADD PRIMARY KEY (`id_usuario`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -299,12 +341,22 @@ MODIFY `id_programa` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 -- AUTO_INCREMENT de la tabla `proveedor`
 --
 ALTER TABLE `proveedor`
-MODIFY `id_proveedor` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=22;
+MODIFY `id_proveedor` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT de la tabla `rendicion`
+--
+ALTER TABLE `rendicion`
+MODIFY `id_rendicion` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `reporte`
 --
 ALTER TABLE `reporte`
-MODIFY `id_reporte` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+MODIFY `id_reporte` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- Restricciones para tablas volcadas
 --
@@ -315,6 +367,7 @@ MODIFY `id_reporte` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 ALTER TABLE `reporte`
 ADD CONSTRAINT `reporte_ibfk_10` FOREIGN KEY (`clase_id`) REFERENCES `clase` (`id_clase`) ON UPDATE CASCADE,
 ADD CONSTRAINT `reporte_ibfk_11` FOREIGN KEY (`concepto_id`) REFERENCES `concepto` (`id_concepto`) ON UPDATE CASCADE,
+ADD CONSTRAINT `reporte_ibfk_12` FOREIGN KEY (`rendicion_id`) REFERENCES `rendicion` (`id_rendicion`) ON UPDATE CASCADE,
 ADD CONSTRAINT `reporte_ibfk_2` FOREIGN KEY (`meta_id`) REFERENCES `meta` (`id_meta`) ON UPDATE CASCADE,
 ADD CONSTRAINT `reporte_ibfk_6` FOREIGN KEY (`programa_id`) REFERENCES `programa` (`id_programa`) ON UPDATE CASCADE,
 ADD CONSTRAINT `reporte_ibfk_7` FOREIGN KEY (`partida_id`) REFERENCES `partida` (`id_partida`) ON UPDATE CASCADE,
