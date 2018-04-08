@@ -145,8 +145,18 @@ app.post('/api/login',(req,res)=>{
         password:req.body.password       
     }
     Query.verifica(user,(err,data)=>{
-     
-           res.status(200).json(data)
+            if(data.success==true){
+                res.status(200).json({
+                    success:true,
+                    data:data.result
+                } )
+            }else{
+                res.status(500).json({
+                    success:false
+
+                })
+            }
+
        
     })
 })

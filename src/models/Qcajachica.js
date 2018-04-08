@@ -154,13 +154,24 @@ dataModel.getUsers = (cb) => {
         })
 }
 
+
 dataModel.verifica = (user, cb) => {
     connection.query(
         `SELECT nombre,estado, privilegio FROM usuario 
         WHERE usuario=? AND password=?`
         , [user.usuario, user.password])
         .then(result => {
-            cb(null, result)
+            if(result.length == 0){
+                cb(null,{
+                    success:false,
+                })
+            }else{
+                cb(null,{
+                    success:true,
+                    result  
+                })
+            }
+            
         }).catch(err => {
             console.log(`Error generado: ${err}`)
         })
