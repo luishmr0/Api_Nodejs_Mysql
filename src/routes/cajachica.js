@@ -151,7 +151,7 @@ app.post('/api/login',(req,res)=>{
                     data:data.result
                 } )
             }else{
-                res.status(500).json({
+                res.status(200).json({
                     success:false
 
                 })
@@ -192,7 +192,7 @@ app.get('/api/getuser/:id',(req,res)=>{
    Query.getUser(id,(err,data)=>{
 
     if(data.length==0){
-        res.status(500).json({
+        res.status(200).json({
             msg:"El usuario no existe"
         })
     }else{
