@@ -173,7 +173,7 @@ app.put('/api/userupdate/:id',(req,res)=>{
         estado:req.body.estado
     }
 
-    Query.userupdate(user,(err,data)=>{
+    Query.updateUser(user,(err,data)=>{
         if(data && data.msg){
             res.status(200).json({data})
         }else{
@@ -183,6 +183,22 @@ app.put('/api/userupdate/:id',(req,res)=>{
             })
         }
     })
+})
+
+//--------------
+//GetUser
+app.get('/api/getuser/:id',(req,res)=>{
+   const id = req.params.id
+   Query.getUser(id,(err,data)=>{
+
+    if(data.length==0){
+        res.status(500).json({
+            msg:"El usuario no existe"
+        })
+    }else{
+        res.status(200).json(data) 
+    }
+   })
 })
 
 

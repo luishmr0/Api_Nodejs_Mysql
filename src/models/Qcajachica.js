@@ -154,34 +154,32 @@ dataModel.getUsers = (cb) => {
         })
 }
 
-
 dataModel.verifica = (user, cb) => {
     connection.query(
         `SELECT nombre,estado, privilegio FROM usuario 
         WHERE usuario=? AND password=?`
         , [user.usuario, user.password])
         .then(result => {
-            if(result.length == 0){
-                cb(null,{
-                    success:false,
+            if (result.length == 0) {
+                cb(null, {
+                    success: false,
                 })
-            }else{
-                cb(null,{
-                    success:true,
-                    result  
+            } else {
+                cb(null, {
+                    success: true,
+                    result
                 })
             }
-            
+
         }).catch(err => {
             console.log(`Error generado: ${err}`)
         })
 
 }
 
-
 //---------------
 //Update Usuarios
-dataModel.userupdate = (user, cb) => {
+dataModel.updateUser = (user, cb) => {
     connection.query(`
     UPDATE usuario SET
     usuario = ?,
@@ -206,5 +204,15 @@ dataModel.userupdate = (user, cb) => {
         })
 }
 
+//get one usuario 
+
+dataModel.getUser = (id, cb) => {
+    connection.query(`SELECT * FROM usuario WHERE id_usuario = ? `, [id])
+        .then(result => {
+            cb(null, result)
+        }).catch(err => {
+            console.log(`Error generado: ${err}`)
+        })
+}
 
 module.exports = dataModel
