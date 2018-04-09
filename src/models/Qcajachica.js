@@ -215,4 +215,23 @@ dataModel.getUser = (id, cb) => {
         })
 }
 
+//RENDICION GETS
+dataModel.getRendiciones = (cb) => {
+    connection.query(`SELECT * FROM rendicion`)
+        .then(result => {
+            cb(null,result)
+        }).catch(err => {
+            console.log(`Error generado: ${err}`)
+        })
+}
+
+dataModel.getRendicion = (id,cb)=>{
+    connection.query(`SELECT * FROM rendicion WHERE id_rendicion = ?`,[id])
+    .then(result => {
+        cb(null,result)
+    }).catch(err => {
+        console.log(`Error generado: ${err}`)
+    })
+}
+
 module.exports = dataModel

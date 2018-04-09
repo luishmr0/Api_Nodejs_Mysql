@@ -162,7 +162,7 @@ app.post('/api/login',(req,res)=>{
 })
 
 // actualizar usuarios
-app.put('/api/userupdate/:id',(req,res)=>{
+app.put('/api/getuser/:id',(req,res)=>{
     const user = {
         id:req.params.id,
         usuario:req.body.usuario,
@@ -201,6 +201,31 @@ app.get('/api/getuser/:id',(req,res)=>{
    })
 })
 
+
+//CREAR FICHA DE REGISTRO
+//UPDATE FICHA
+//SELECT ALL FICHAS
+app.get('/api/rendiciones',(req,res)=>{
+    Query.getRendiciones((err,data)=>{
+        res.status(200).json(data)
+    })
+})
+
+
+
+//SELECT UNA FICHA X ID
+    app.get('/api/rendicion/:id',(req,res)=>{
+        id = req.params.id
+        Query.getRendicion(id,(err,data)=>{
+            if(data.length==0){
+                res.status(200).json({
+                    msg:"La rendicion no existe"
+                })
+            }else{
+                res.status(200).json(data) 
+            }
+        })
+    })
 
 }
 
