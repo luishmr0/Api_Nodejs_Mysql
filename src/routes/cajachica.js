@@ -203,6 +203,19 @@ app.get('/api/getuser/:id',(req,res)=>{
 
 
 //CREAR FICHA DE REGISTRO
+app.post('/api/rendicion',(req,res)=>{
+    const  rend={
+        id_rendicion :null,
+        presupuesto:req.body.presupuesto,
+        fecha:req.body.fecha,
+        total:0.00
+    }
+    Query.insertRendicion(rend,(err,data)=>{
+            res.status(200).json(data)
+    })
+})
+
+
 //UPDATE FICHA
 //SELECT ALL FICHAS
 app.get('/api/rendiciones',(req,res)=>{

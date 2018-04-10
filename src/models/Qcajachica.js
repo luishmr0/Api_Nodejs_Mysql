@@ -234,4 +234,12 @@ dataModel.getRendicion = (id,cb)=>{
     })
 }
 
+//POST RENDICION
+dataModel.insertRendicion = (rend,cb)=>{
+    connection.query(`INSERT INTO rendicion SET ? `,[rend])
+    .then(result=>{
+        cb(null,{insertId: result.insertId})
+    })
+}
+
 module.exports = dataModel
