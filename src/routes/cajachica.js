@@ -240,5 +240,10 @@ app.get('/api/rendiciones',(req,res)=>{
         })
     })
 
+
+    //UPDATE REGISTRO
+    
+
+
 }
 

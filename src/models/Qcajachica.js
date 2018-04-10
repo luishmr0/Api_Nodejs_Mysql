@@ -156,7 +156,7 @@ dataModel.getUsers = (cb) => {
 
 dataModel.verifica = (user, cb) => {
     connection.query(
-        `SELECT nombre,estado, privilegio FROM usuario 
+        `SELECT id_usuario,estado, privilegio FROM usuario 
         WHERE usuario=? AND password=?`
         , [user.usuario, user.password])
         .then(result => {
