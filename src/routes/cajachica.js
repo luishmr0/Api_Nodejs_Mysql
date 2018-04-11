@@ -21,6 +21,14 @@ module.exports = function (app) {
             res.status(200).json(data)
         })
     })
+    //Mostrar reportes x rendicion
+    app.get('/api/reporte/rendicion/:id',(req,res)=>{
+      const id = req.params.id
+        Query.getRendicionId(id,(err,data)=>{
+            res.status(200).json(data)
+        })
+    })
+
 
     //Guardar solo proveedores
     //---------------------------------------------
@@ -53,8 +61,7 @@ module.exports = function (app) {
     app.post('/api/reporte', (req, res) => {
         const reportData = {
             id_reporte: null,
-            presupuesto:req.body.presupuesto,
-            fecha_doc:req.body.fecha_doc,
+            rendicion_id:req.body.rendicion,
             fecha: req.body.fecha,
             clase_id: req.body.clase,
             numero:req.body.numero,
@@ -100,7 +107,7 @@ module.exports = function (app) {
     })
 
 //REGISTRAR USUARIOS
-app.post('/api/user',(req,res)=>{
+app.post('/api/users',(req,res)=>{
     const usuario = {
         nombre:req.body.nombre,
         apellido:req.body.apellido,
@@ -162,7 +169,7 @@ app.post('/api/login',(req,res)=>{
 })
 
 // actualizar usuarios
-app.put('/api/getuser/:id',(req,res)=>{
+app.put('/api/users/:id',(req,res)=>{
     const user = {
         id:req.params.id,
         usuario:req.body.usuario,
@@ -187,7 +194,7 @@ app.put('/api/getuser/:id',(req,res)=>{
 
 //--------------
 //GetUser
-app.get('/api/getuser/:id',(req,res)=>{
+app.get('/api/users/:id',(req,res)=>{
    const id = req.params.id
    Query.getUser(id,(err,data)=>{
 
@@ -227,7 +234,7 @@ app.get('/api/rendiciones',(req,res)=>{
 
 
 //SELECT UNA FICHA X ID
-    app.get('/api/rendicion/:id',(req,res)=>{
+    app.get('/api/rendicions/:id',(req,res)=>{
         id = req.params.id
         Query.getRendicion(id,(err,data)=>{
             if(data.length==0){

@@ -17,6 +17,7 @@ var queryReporte = `
 SELECT  
     r.id_reporte,
     r.fecha,
+    r.rendicion_id rendicion,
     cl.desc_clase clase,
     r.numero,
     r.dni_ruc,
@@ -118,6 +119,21 @@ dataModel.getReporte = (cb) => {
             console.log(`Error generado: ${err}`)
         })
 }
+
+//Mostrar reporte solo x id de rendicion
+//--------------------------------------
+dataModel.getRendicionId=(id,cb)=>{
+    connection.query(
+    `   ${queryReporte}
+        WHERE rendicion_id = ?
+    `,[id]
+    ).then(r1=>{
+        cb(null,r1)
+    }).catch(err=>{
+        console.log(`Error generado: ${err}`)
+    })
+}
+
 
 //---------------------------------------------
 dataModel.reportesFecha = (date, cb) => {
