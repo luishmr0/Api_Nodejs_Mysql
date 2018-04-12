@@ -7,8 +7,8 @@ const mysql = require('promise-mysql')
 
 var connection = mysql.createPool({
     host: 'localhost',
-    user: 'root',
-    password: '',
+    user: 'mysql',
+    password: 'root',
     database: 'cajachica',
     connectionLimit: 10
 })
@@ -16,6 +16,8 @@ var connection = mysql.createPool({
 var queryReporte = `
 SELECT  
     r.id_reporte,
+    ren.presupuesto,
+    ren.fecha fecharepor,
     r.fecha,
     r.rendicion_id rendicion,
     cl.desc_clase clase,
@@ -30,6 +32,7 @@ SELECT
     a.desc_area area,
     m.desc_meta meta
 FROM reporte r 
+    INNER JOIN rendicion ren ON ren.id_rendicion = r.rendicion_id
     INNER JOIN meta m ON m.id_meta = r.meta_id
     INNER JOIN area a ON a.id_area = r.area_id
     INNER JOIN proveedor pt ON pt.id_proveedor = r.proveedor_id
