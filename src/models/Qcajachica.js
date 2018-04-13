@@ -261,4 +261,11 @@ dataModel.insertRendicion = (rend,cb)=>{
     })
 }
 
+dataModel.getRendicionIds = (ids,cb)=>{
+    connection.query('SELECT * FROM  reporte WHERE id_reporte=? and rendicion_id=?',[ids.id1,ids.id2])
+    .then(result =>{
+        cb(null,result)
+    })
+}
+
 module.exports = dataModel

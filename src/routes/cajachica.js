@@ -234,7 +234,7 @@ app.get('/api/rendiciones',(req,res)=>{
 
 
 //SELECT UNA FICHA X ID
-    app.get('/api/rendicions/:id',(req,res)=>{
+    app.get('/api/rendicion/:id',(req,res)=>{
         id = req.params.id
         Query.getRendicion(id,(err,data)=>{
             if(data.length==0){
@@ -248,9 +248,18 @@ app.get('/api/rendiciones',(req,res)=>{
     })
 
 
-    //UPDATE REGISTRO
-    
+ 
+    app.get('/api/reporte/rendicion/:id1/:id2',(req,res)=>{
 
+        const ids ={
+            id1:req.params.id1,
+            id2:req.params.id2
+        }
+        Query.getRendicionIds(ids,(err,data)=>{
+            res.status(200).json(data)
+        })
+    })
+    
 
 }
 
