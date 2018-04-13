@@ -125,14 +125,14 @@ dataModel.getReporte = (cb) => {
 
 //Mostrar reporte solo x id de rendicion
 //--------------------------------------
-dataModel.getRendicionId=(id,cb)=>{
+dataModel.getRendicionId = (id, cb) => {
     connection.query(
-    `   ${queryReporte}
+        `   ${queryReporte}
         WHERE rendicion_id = ?
-    `,[id]
-    ).then(r1=>{
-        cb(null,r1)
-    }).catch(err=>{
+    `, [id]
+    ).then(r1 => {
+        cb(null, r1)
+    }).catch(err => {
         console.log(`Error generado: ${err}`)
     })
 }
@@ -214,7 +214,8 @@ dataModel.updateUser = (user, cb) => {
         user.apellido,
         user.privilegio,
         user.estado,
-        user.id]).then(result => {
+        user.id])
+        .then(result => {
             cb(null, {
                 "msg": "success"
             })
@@ -238,34 +239,82 @@ dataModel.getUser = (id, cb) => {
 dataModel.getRendiciones = (cb) => {
     connection.query(`SELECT * FROM rendicion`)
         .then(result => {
-            cb(null,result)
+            cb(null, result)
         }).catch(err => {
             console.log(`Error generado: ${err}`)
         })
 }
 
-dataModel.getRendicion = (id,cb)=>{
-    connection.query(`SELECT * FROM rendicion WHERE id_rendicion = ?`,[id])
-    .then(result => {
-        cb(null,result)
-    }).catch(err => {
-        console.log(`Error generado: ${err}`)
-    })
+dataModel.getRendicion = (id, cb) => {
+    connection.query(`SELECT * FROM rendicion WHERE id_rendicion = ?`, [id])
+        .then(result => {
+            cb(null, result)
+        }).catch(err => {
+            console.log(`Error generado: ${err}`)
+        })
 }
 
 //POST RENDICION
-dataModel.insertRendicion = (rend,cb)=>{
-    connection.query(`INSERT INTO rendicion SET ? `,[rend])
-    .then(result=>{
-        cb(null,{insertId: result.insertId})
-    })
+dataModel.insertRendicion = (rend, cb) => {
+    connection.query(`INSERT INTO rendicion SET ? `, [rend])
+        .then(result => {
+            cb(null, { insertId: result.insertId })
+        }).catch(err => {
+            console.log(`Error generado: ${err}`)
+        })
 }
 
-dataModel.getRendicionIds = (ids,cb)=>{
-    connection.query('SELECT * FROM  reporte WHERE id_reporte=? and rendicion_id=?',[ids.id1,ids.id2])
-    .then(result =>{
-        cb(null,result)
-    })
+dataModel.getRendicionIds = (ids, cb) => {
+    connection.query('SELECT * FROM  reporte WHERE id_reporte=? and rendicion_id=?', [ids.id1, ids.id2])
+        .then(result => {
+            cb(null, result)
+        }).catch(err => {
+            console.log(`Error generado: ${err}`)
+        })
+}
+
+dataModel.updateReporte = (data, cb) => {
+    connection.query(`
+    UPDATE reporte SET
+
+    rendicion_id= ?,
+    fecha = ?,   
+    clase_id = ?,    
+    numero = ?,    
+    dni_ruc = ?,    
+    proveedor_id = ?,    
+    detalle_gasto = ?,   
+    concepto_id = ?,    
+    importe = ?,   
+    partida_id = ?,   
+    programa_id = ?,    
+    area_id = ?,  
+    meta_id = ?   
+    WHERE id_reporte = ?
+    `, [
+         
+            data.rendicion_id,
+            data.fecha,
+            data.clase_id,
+            data.numero,
+            data.dni_ruc,
+            data.proveedor_id,
+            data.detalle_gasto,
+            data.concepto_id,
+            data.importe,
+            data.partida_id,
+            data.programa_id,
+            data.area_id,
+            data.meta_id,
+            data.id_reporte
+        ])
+        .then(rs => {
+            cb(null, {
+                "msg": "se actualizo correctamente"
+            })
+        }).catch(err => {
+            console.log(`Error generado: ${err}`)
+        })
 }
 
 module.exports = dataModel

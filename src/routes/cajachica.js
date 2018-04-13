@@ -252,11 +252,34 @@ app.get('/api/rendiciones',(req,res)=>{
     app.get('/api/reporte/rendicion/:id1/:id2',(req,res)=>{
 
         const ids ={
-            id1:req.params.id1,
-            id2:req.params.id2
+            id1:req.params.id1,//id main
+            id2:req.params.id2//id rendicion
         }
         Query.getRendicionIds(ids,(err,data)=>{
             res.status(200).json(data)
+        })
+    })
+
+    app.put('/api/reporte/rendicion/:id1/:id2',(req,res)=>{
+
+        const data = {
+            id_reporte:req.params.id1,
+            rendicion_id:req.params.id2,
+            fecha:req.body.fecha,
+            clase_id:req.body.clase,
+            numero:req.body.numero,
+            dni_ruc:req.body.dni,
+            proveedor_id:req.body.proveedor,
+            detalle_gasto:req.body.detalle,
+            concepto_id:req.body.concepto,
+            importe:req.body.importe,
+            partida_id:req.body.partida,
+            programa_id:req.body.programa,
+            area_id:req.body.area,
+            meta_id:req.body.meta
+        }
+        Query.updateReporte(data,(err,result)=>{
+            res.status(200).json(result)
         })
     })
     
