@@ -18,7 +18,7 @@ SELECT
     r.id_reporte,
     ren.presupuesto,
     ren.fecha fecharepor,
-    r.fecha,
+    r.fecha fecha,
     r.rendicion_id rendicion,
     cl.desc_clase clase,
     r.numero,
