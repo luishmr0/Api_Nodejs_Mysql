@@ -252,8 +252,8 @@ app.get('/api/rendiciones',(req,res)=>{
     app.get('/api/reporte/rendicion/:id1/:id2',(req,res)=>{
 
         const ids ={
-            id1:req.params.id1,//id main
-            id2:req.params.id2//id rendicion
+            id1:req.params.id2,//id main
+            id2:req.params.id1//id rendicion
         }
         Query.getRendicionIds(ids,(err,data)=>{
             res.status(200).json(data)
@@ -263,8 +263,8 @@ app.get('/api/rendiciones',(req,res)=>{
     app.put('/api/reporte/rendicion/:id1/:id2',(req,res)=>{
 
         const data = {
-            id_reporte:req.params.id1,
-            rendicion_id:req.params.id2,
+            id_reporte:req.params.id2,
+            rendicion_id:req.params.id1,
             fecha:req.body.fecha,
             clase_id:req.body.clase,
             numero:req.body.numero,
