@@ -114,7 +114,7 @@ dataModel.insertReporte = (data, cb) => {
 dataModel.getReporte = (cb) => {
     connection.query(
         `   ${queryReporte}
-             ORDER BY r.id_reporte
+            ORDER BY r.rendicion_id
              `)
         .then(r1 => {
             cb(null, r1)
@@ -142,8 +142,8 @@ dataModel.getRendicionId = (id, cb) => {
 dataModel.reportesFecha = (date, cb) => {
     connection.query(`
     ${queryReporte}
-    WHERE fecha BETWEEN  ? AND ?
-    ORDER BY r.id_reporte
+    WHERE r.fecha BETWEEN  ? AND ?
+    ORDER BY r.rendicion_id
     `, [date.d1, date.d2])
         .then(result => {
             // console.log(date.d1,date.d2)
