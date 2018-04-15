@@ -1,5 +1,5 @@
-﻿CREATE DATABASE  IF NOT EXISTS `cajachica` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `cajachica`;
+--﻿CREATE DATABASE  IF NOT EXISTS `cajachica` /*!40100 DEFAULT CHARACTER SET utf8 */;
+-- USE `cajachica`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: cajachica
