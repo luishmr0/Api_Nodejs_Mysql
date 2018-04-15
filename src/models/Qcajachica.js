@@ -6,11 +6,13 @@ const mysql = require('promise-mysql')
 
 
 var connection = mysql.createPool({
-    host: 'localhost',
-    user: 'mysql',
-    password: 'root',
-    database: 'cajachica',
+    host: 'us-cdbr-iron-east-05.cleardb.net',
+    user: 'b7558e28904de9',
+    password: '42508227',
+    database: 'heroku_bdb5cabafb88ff9',
     connectionLimit: 10
+    
+
 })
 
 var queryReporte = `
